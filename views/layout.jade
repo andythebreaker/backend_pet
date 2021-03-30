@@ -1,43 +1,29 @@
 doctype html
 html
   head
-    title Welcome //修改網頁Title
-    //加入bootstrap
+    title Welcome
     link(href='/stylesheets/bootstrap.css', rel='stylesheet')
-    //加入css
     link(href='/stylesheets/style.css', rel='stylesheet')
   body
-    //修改navbar樣式
-    nav.navbar.navbar-default(role='navigation')
-      .container
+    header 
+
+      nav.navbar.navbar-expand-lg.sticky-top.navbar-dark.bg_6AB4CD(role='navigation')
         .navbar-header
-          //修改button樣式
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse') 
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          //修改project name
           a.navbar-brand(href='#') NodeAuth
-        //修改navbar樣式
+          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 
+            span.navbar-toggler-icon
         .navbar-collapse.collapse
-          ul.nav.navbar-nav
-            //如果目前位置為此頁面，樣式設為active(選取中)
-            li(class=(title == 'Members' ? 'active' : ''))
-              //修改連結文字為Member
-              a(href='/') Members
-            li(class=(title == 'Register' ? 'active' : ''))
-              //修改連結文字為Register
-              a(href='/users/register') Register
-            li(class=(title == 'Login' ? 'active' : ''))
-              //修改連結文字為Login
-              a(href='/users/login') Login
-          //navbar右側加入logout區塊
+          ul.navbar-nav.mr-auto
+            li.nav-item(class=(title == 'Members' ? 'active' : ''))
+              a.nav-link(href='/') Members
+            li.nav-item(class=(title == 'Register' ? 'active' : ''))
+              a.nav-link(href='/users/register') Register
+            li.nav-item(class=(title == 'Login' ? 'active' : ''))
+              a.nav-link(href='/users/login') Login
           ul.nav.navbar-nav.navbar-right
-           li
-              //加入logout連結
-              a(href='/users/logout') Logout
+            li.nav-item
+              a.nav-link(href='/users/logout') Logout
     .container
-     block content
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
-    script(src='javascripts/bootstrap.js')
+      block content
+    script(src='https://code.jquery.com/jquery-1.12.4.min.js')
+    script(src='/javascripts/bootstrap.js')
