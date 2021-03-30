@@ -1,7 +1,43 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Welcome //修改網頁Title
+    //加入bootstrap
+    link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+    //加入css
+    link(href='/stylesheets/style.css', rel='stylesheet')
   body
-    block content
+    //修改navbar樣式
+    nav.navbar.navbar-default(role='navigation')
+      .container
+        .navbar-header
+          //修改button樣式
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse') 
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          //修改project name
+          a.navbar-brand(href='#') NodeAuth
+        //修改navbar樣式
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav
+            //如果目前位置為此頁面，樣式設為active(選取中)
+            li(class=(title == 'Members' ? 'active' : ''))
+              //修改連結文字為Member
+              a(href='/') Members
+            li(class=(title == 'Register' ? 'active' : ''))
+              //修改連結文字為Register
+              a(href='/users/register') Register
+            li(class=(title == 'Login' ? 'active' : ''))
+              //修改連結文字為Login
+              a(href='/users/login') Login
+          //navbar右側加入logout區塊
+          ul.nav.navbar-nav.navbar-right
+           li
+              //加入logout連結
+              a(href='/users/logout') Logout
+    .container
+     block content
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(src='javascripts/bootstrap.js')
