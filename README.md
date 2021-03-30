@@ -1,3 +1,0 @@
-# pixitest
-
-test passport mongodb
