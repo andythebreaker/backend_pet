@@ -1,7 +1,7 @@
 //using mongoose to connect mongodb
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-mongoose.connect('mongodb://localhost:27017/nodeauth', {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false, useCreateIndex: true});
+mongoose.connect('mongodb://localhost:27017/nodeauth', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
 var db = mongoose.connection;
 
 //User Schema
@@ -28,27 +28,31 @@ var UserSchema = mongoose.Schema({
 var User = module.exports = mongoose.model('User', UserSchema);
 
 //passport
-module.exports.getUserById = function(id, callback){
+module.exports.getUserById = function (id, callback) {
+console.log("------->findById");
     User.findById(id, callback);
+    console.log(callback);
 }
 
-module.exports.getUserByUsername = function(username, callback){
-    var query = {username: username};
+module.exports.getUserByUsername = function (username, callback) {
+    console.log("------->getUserByUsername");
+    var query = { username: username };
     User.findOne(query, callback);
+    console.log(callback);
 }
 
-module.exports.comparePassword = function(candidatePassword, hash, callback){
+module.exports.comparePassword = function (candidatePassword, hash, callback) {
     // Load hash from your password DB.
-    bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
         callback(null, isMatch);
-    });   
+    });
 }
 
 //export createUser function
-module.exports.createUser = function(newUser, callback){
+module.exports.createUser = function (newUser, callback) {
     //newUser.save(callback); //mongoose function to insert to DB
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(newUser.password, salt, function (err, hash) {
             // Store hash in your password DB.
             newUser.password = hash;
             newUser.save(callback);
