@@ -24,6 +24,7 @@ html
             li.nav-item
               a.nav-link(href='/users/logout') Logout
     .container
+      != messages()
       block content
     script(src='https://code.jquery.com/jquery-1.12.4.min.js')
     script(src='/javascripts/bootstrap.js')
