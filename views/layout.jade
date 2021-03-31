@@ -14,17 +14,22 @@ html
             span.navbar-toggler-icon
         .navbar-collapse.collapse
           ul.navbar-nav.mr-auto
-            li.nav-item(class=(title == 'Members' ? 'active' : ''))
-              a.nav-link(href='/') Members
-            li.nav-item(class=(title == 'Register' ? 'active' : ''))
-              a.nav-link(href='/users/register') Register
-            li.nav-item(class=(title == 'Login' ? 'active' : ''))
-              a.nav-link(href='/users/login') Login
+            if user
+              li.nav-item(class=(title == 'Members' ? 'active' : ''))
+                a.nav-link(href='/') Members
+            if !user
+              li.nav-item(class=(title == 'Register' ? 'active' : ''))
+                a.nav-link(href='/users/register') Register
+              li.nav-item(class=(title == 'Login' ? 'active' : ''))
+                a.nav-link(href='/users/login') Login
           ul.nav.navbar-nav.navbar-right
-            li.nav-item
-              a.nav-link(href='/users/logout') Logout
+            if user
+              li.nav-item
+                a.nav-link(href='/users/logout') Logout
     .container
       != messages()
       block content
+    section.container
+      h3.display_none user?_#{user}
     script(src='https://code.jquery.com/jquery-1.12.4.min.js')
     script(src='/javascripts/bootstrap.js')

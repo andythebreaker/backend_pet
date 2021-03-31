@@ -1,6 +1,7 @@
 .bg_6AB4CD{
   background-color: #6AB4CD;
 }
+
 ul.success li {
   padding: 15px;
   margin-bottom: 20px;
@@ -21,4 +22,8 @@ ul.error li {
   background-color: #f2dede;
   border-color: #ebccd1;
   list-style: none;
+}
+
+.display_none{
+  display: none;
 }

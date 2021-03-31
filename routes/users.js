@@ -99,33 +99,33 @@ router.post('/register', upload.single('profileimage'), function (req, res, next
 
 });
 
-passport.use(new LocalStrategy(function(username, password, done){
+passport.use(new LocalStrategy(function (username, password, done) {
   //compare username
-  User.getUserByUsername(username, function(err, user){
-      if(err) throw err;
-      if(!user){
-          return done(null, false, {message: 'Unknown User'});
+  User.getUserByUsername(username, function (err, user) {
+    if (err) throw err;
+    if (!user) {
+      return done(null, false, { message: 'Unknown User' });
+    }
+    //compare password
+    User.comparePassword(password, user.password, function (err, isMatch) {
+      if (err) throw err;
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: 'Invalid Password' });
       }
-      //compare password
-      User.comparePassword(password, user.password, function(err, isMatch){
-          if(err) throw err;
-          if(isMatch){
-              return done(null, user);
-          } else {
-              return done(null, false, {message: 'Invalid Password'});
-          }
-      });
+    });
 
   });
 }));
 
 //加入 passport 驗證
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 //繼續加入 session
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  User.getUserById(id, function (err, user) {
     done(err, user);
   });
 });
@@ -133,10 +133,15 @@ passport.deserializeUser(function(id, done) {
 //加入login的HTTP POST request
 //POST request to login
 router.post('/login',
-  passport.authenticate('local', {failureRedirect:'/users/login', failureFlash: 'Invalid username or password'}),
-  function(req, res) {
-      req.flash('success', 'You are now logged in');
-      res.redirect('/');
+  passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: 'Invalid username or password' }),
+  function (req, res) {
+    req.flash('success', 'You are now logged in');
+    res.redirect('/');
   });
+
+router.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/users/login');
+});
 
 module.exports = router;

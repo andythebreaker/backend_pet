@@ -98,6 +98,14 @@ app.use(function (req, res, next) {
 });
 //---
 
+//set global variable for login/logout status
+app.get('*', function(req, res, next){
+  console.log("app.get(*, function(req, res, next){");
+  console.log(req.user);
+  res.locals.user = req.user || null;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
